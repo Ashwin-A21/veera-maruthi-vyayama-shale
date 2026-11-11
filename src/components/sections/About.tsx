@@ -1,18 +1,11 @@
 "use client";
 
 import { useRef } from "react";
-import type { AssetMap, AssetKey } from "@/lib/assets";
+import type { AssetMap } from "@/lib/assets";
 import { useReveal } from "@/components/ui/useReveal";
 import Pic from "@/components/ui/Pic";
 import Float from "@/components/ui/Float";
 import { features } from "@/lib/site";
-
-const COLLAGE: { key: AssetKey; cls: string }[] = [
-  { key: "about1", cls: "col-span-7 rounded-[2.2rem_0.6rem_0.6rem_0.6rem]" },
-  { key: "about2", cls: "col-span-5 rounded-[0.6rem_2.2rem_0.6rem_0.6rem]" },
-  { key: "about3", cls: "col-span-5 rounded-[0.6rem_0.6rem_0.6rem_2.2rem]" },
-  { key: "about4", cls: "col-span-7 rounded-[0.6rem_0.6rem_2.2rem_0.6rem]" },
-];
 
 export default function About({ a }: { a: AssetMap }) {
   const root = useRef<HTMLElement>(null);
@@ -43,27 +36,34 @@ export default function About({ a }: { a: AssetMap }) {
           </ul>
         </div>
 
-        {/* photo collage with the Ayyappa frame hanging over its corner */}
-        <div data-reveal className="relative mx-auto w-full max-w-[600px] pt-10 lg:pt-0">
-          <div className="grid grid-cols-12 gap-3">
-            {COLLAGE.map(({ key, cls }) => (
-              <div key={key} className={`relative aspect-[4/3.2] overflow-hidden bg-sand ${cls}`}>
-                <Pic asset={a[key]} fill sizes="(min-width:1024px) 25vw, 50vw" className="transition-transform duration-700 hover:scale-[1.04]" />
-              </div>
-            ))}
+        {/* Ayyappa in a warm arch, rising out of its top edge */}
+        <figure data-reveal className="relative mx-auto w-full max-w-[460px] pt-[18%]">
+          <div
+            className="relative aspect-[4/5] w-full overflow-hidden rounded-t-full rounded-b-[2rem] shadow-[0_30px_60px_-35px_rgba(91,31,27,0.55)]"
+            style={{
+              background:
+                "radial-gradient(60% 45% at 50% 38%, rgba(211,155,53,0.45), transparent 70%), linear-gradient(180deg, #efe2cc 0%, #e4d2b6 100%)",
+            }}
+          >
+            {/* faint concentric rings, like a temple prabhavali */}
+            <div className="absolute left-1/2 top-[36%] aspect-square w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-turmeric/30" />
+            <div className="absolute left-1/2 top-[36%] aspect-square w-[60%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-turmeric/30" />
+            <div className="absolute inset-3 rounded-t-full rounded-b-[1.6rem] border border-paper/60" />
           </div>
 
-          <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-paper-2 px-7 py-2.5 font-script text-[2rem] leading-none text-ink shadow-[0_8px_30px_-12px_rgba(43,34,29,0.35)] md:text-[2.4rem]">
-            Faith &amp; Iron
-          </span>
-
-          {/* Ayyappa sits on the collage's top-right corner and breaks out of it */}
-          <div className="absolute -right-[4%] -top-[16%] w-[44%] md:-right-[10%] md:-top-[18%] md:w-[44%]">
-            <Float depth={12} parallax={16}>
-              <Pic asset={a.ayyappa} sizes="(min-width:1024px) 300px, 45vw" className="cutout" />
+          <div className="absolute -inset-x-[10%] bottom-[8%]">
+            <Float depth={12} parallax={14}>
+              <Pic asset={a.ayyappa} sizes="(min-width:1024px) 440px, 90vw" className="cutout" />
             </Float>
           </div>
-        </div>
+
+          <figcaption className="mt-6 text-center">
+            <span className="block font-kn text-xl text-maroon md:text-2xl">ಸ್ವಾಮಿಯೇ ಶರಣಂ ಅಯ್ಯಪ್ಪ</span>
+            <span className="mt-1 block text-xs uppercase tracking-[0.24em] text-muted">
+              The blessing our shale is named for
+            </span>
+          </figcaption>
+        </figure>
       </div>
     </section>
   );
